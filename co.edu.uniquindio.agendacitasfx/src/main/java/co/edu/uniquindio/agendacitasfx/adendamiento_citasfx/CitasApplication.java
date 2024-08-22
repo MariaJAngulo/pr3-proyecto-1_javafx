@@ -7,10 +7,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AgendaCitasApplication extends Application {
+public class CitasApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(AgendaCitasApplication.class.getResource("AgendaCitas.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(CitasApplication.class.getResource("AgendaCitas.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Perfect Nails");
         stage.setScene(scene);

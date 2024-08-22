@@ -1,7 +1,11 @@
 package co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.viewController;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Dto.ClienteDto;
+import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.controller.AgendaCitasController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -50,6 +54,7 @@ public class AgendacitasViewController {
     @FXML
     private TextField txtTelefonoCliente;
 
+
     @FXML
     void OnbtnActulializar(ActionEvent event) {
 
@@ -57,6 +62,7 @@ public class AgendacitasViewController {
 
     @FXML
     void OnbtnAgendaCita(ActionEvent event) {
+        btnAgendaCita();
 
     }
 
@@ -72,8 +78,39 @@ public class AgendacitasViewController {
 
     @FXML
     void initialize() {
+        AgendaCitasController = new AgendaCitasController();
+    }
 
+    private void agendarCita() {
+        if(verificarDatos()){
+            if(AgendaCitasController.disponibilidadFecha(DateInfo)){
+                ClienteDto clienteDto = crearClienteDto();
+                AgendaCitasController.crearCita(clienteDto)
+
+            }else {
+                mostrarMensaje("Advertencia", "Fecha Ocupada", "La fecha solicitada no se encuentra disponible")
+            }
+        }
+    }
+    private void crearClienteDto() {
+        ClienteDto clienteDto = new ClienteDto(
+                txtNombreCliente.getText(),
+                txtCedulaCliente.getText(),
+                txtTelefonoCliente.getText()
+        );
+        return clienteDto;
+    }
+
+    private boolean verificarDatos(){
+        boolean resultado = true;
+        LocalDate fecha = DateInfo.getValue();
+        if(txtCedulaCliente.getText().equals("") || txtNombreCliente.getText().equals("") || txtTelefonoCliente.getText().equals("")){
+            return false;
+        }
+        return true;
     }
 
 }
+
+
 
