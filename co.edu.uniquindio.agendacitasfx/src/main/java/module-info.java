@@ -1,7 +1,8 @@
 module co.edu.uniquindio.agendacitasfx.adendamiento_citasfx {
     requires javafx.controls;
     requires javafx.fxml;
-    requires static lombok;
+    requires org.mapstruct;
+
 
 
     opens co.edu.uniquindio.agendacitasfx.adendamiento_citasfx to javafx.fxml;
@@ -11,5 +12,7 @@ module co.edu.uniquindio.agendacitasfx.adendamiento_citasfx {
     opens co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.viewController to javafx.fxml;
     exports co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.controller;
     exports co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.viewController;
+    exports co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Mappings.Mapper;
+    exports co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Mappings.Mapper.Dto;
 
 }

@@ -17,22 +17,22 @@ public class SalonUtils {
 
         Empleado empleado = new Empleado();
         empleado.setNombre("karen");
-        empleado.getApellido("muñoz");
+        empleado.setApellido("Muñoz");
         empleado.setIdEmpleado("123456");
         salon.getEmpleados().add(empleado);
 
         Cliente cliente= new Cliente();
-        cliente.setNombre("karen");
+        cliente.setNombre("xiomara");
         cliente.setCedula("12345678");
         cliente.setTelefono("31374563");
         salon.getClientes().add(cliente);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Cita cita= new Cita();
-        cita.setFecha(LocalDate.parse("25/08/2024"));
+        cita.setFecha(LocalDate.parse("25/08/2024", formatter));
         cita.setClienteAsociado(cliente);
-        cita.setClienteAsociado(empleado);
-        salon.getCita().add(cita);
+        cita.setEmpleadoAsociado(empleado);
+        salon.getCitas().add(cita);
 
         return salon;
 

@@ -4,14 +4,11 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Dto.ClienteDto;
+import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Mappings.Mapper.Dto.ClienteDto;
 import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.controller.AgendaCitasController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class AgendacitasViewController {
 
@@ -83,15 +80,15 @@ public class AgendacitasViewController {
 
     private void agendarCita() {
         if(verificarDatos()){
-            if(AgendaCitasController.disponibilidadFecha(DateInfo)){
+            if(AgendaCitasController.disponibilidadFecha(DateFecha)){
                 ClienteDto clienteDto = crearClienteDto();
-                AgendaCitasController.crearCita(clienteDto)
-
+                AgendaCitasController.crearCita(clienteDto);
             }else {
-                mostrarMensaje("Advertencia", "Fecha Ocupada", "La fecha solicitada no se encuentra disponible")
+                mostrarMensaje("Advertencia", "Fecha Ocupada", "La fecha solicitada no se encuentra disponible");
             }
         }
     }
+
     private void crearClienteDto() {
         ClienteDto clienteDto = new ClienteDto(
                 txtNombreCliente.getText(),
@@ -101,10 +98,37 @@ public class AgendacitasViewController {
         return clienteDto;
     }
 
-    private boolean verificarDatos(){
+    private boolean verificarDatos() {
+        boolean resultado = true;
+        LocalDate fecha = DateFecha.getValue();
+        if (txtCedulaCliente.getText().equals("") || txtNombreCliente.getText().equals("")||txtTelefonoCliente.getText().equals("")){
+            mostrarMensaje("Error", "Campos Nulos", "Hay campos sin rellenar.", Alert.AlertType.ERROR);
+            resultado = false;
+        }else if (fecha.isBefore(LocalDate.now())) {
+            mostrarMensaje("Error", "Fecha Nula o Incorrecta", "La fecha ingresada es nula o anterior al dia actual", Alert.AlertType.ERROR);
+            resultado = false;
+        }
+        return resultado;
+
+    }
+
+    private void mostrarMensaje(String titulo, String header, String contenido, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(contenido);
+        alert.show();
+    }
+
+
+    private boolean verificarDatos() {
         boolean resultado = true;
         LocalDate fecha = DateInfo.getValue();
-        if(txtCedulaCliente.getText().equals("") || txtNombreCliente.getText().equals("") || txtTelefonoCliente.getText().equals("")){
+        if(txtCedulaCliente.getText().equals("") || txtNombreCliente.getText().equals("") || txtTelefonoCliente.getText().equals("")) {
+            mostrarMensaje("Error", "Campos Nulos", "Hay campos necesarios sin rellenar", Alert.AlertType);
+            resultado = false;
+        }else if (fecha.isBefore(LocalDate.now())) {
+            mostrarMensaje("Error", )
             return false;
         }
         return true;
