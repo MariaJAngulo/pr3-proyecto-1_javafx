@@ -14,18 +14,20 @@ import java.util.List;
 
 public class ModelFactory {
     private static ModelFactory modelFactory;
-     Salon salon;
+    Salon salon;
 
 
-    public static ModelFactory getInstance(){
-        if(modelFactory == null){
+    public static ModelFactory getInstance() {
+        if (modelFactory == null) {
             modelFactory = new ModelFactory();
         }
         return modelFactory;
     }
 
-    private ModelFactory(){
-        salon = SalonUtils.inicializarDatos();}
+    private ModelFactory() {
+        salon = SalonUtils.inicializarDatos();
+    }
+
     public boolean disponibilidadFecha(DatePicker dateInfo) {
 
         return salon.disponibilidadFecha(dateInfo);
@@ -38,7 +40,9 @@ public class ModelFactory {
         Cita cita = new Cita();
         cita.setFecha(fecha);
         cita.setClienteAsociado(cliente);
-        cita.getEmpleadoAsociado(salon.getEmpleados().getFirst());
+        cita.setEmpleadoAsociado(salon.getEmpleados().getFirst());
         salon.getCitas().add(cita);
 
     }
+
+}

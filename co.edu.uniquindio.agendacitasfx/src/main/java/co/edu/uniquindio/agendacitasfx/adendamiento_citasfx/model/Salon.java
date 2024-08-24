@@ -13,10 +13,10 @@ public class Salon {
     private List<Cliente> clientes = new ArrayList<>();
 
     public String getNombre() {
-        return nombre;}
+        return nombre;
+    }
 
     public void setNombre(String nombre) {
-
         this.nombre = nombre;
     }
 
@@ -49,6 +49,9 @@ public class Salon {
         this.citas = cita;
         this.empleados = empleados;
         this.clientes = clientes;
+    }
+
+    public Salon() {
     }
 
     public boolean disponibilidadFecha(DatePicker dateInfo) {

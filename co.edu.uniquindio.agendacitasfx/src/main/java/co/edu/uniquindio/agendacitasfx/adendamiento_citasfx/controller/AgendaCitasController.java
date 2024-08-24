@@ -5,7 +5,7 @@ import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Factory.ModelFactory
 import javafx.scene.control.DatePicker;
 
 public class AgendaCitasController {
-    ModelFactory modelFactory;
+    static ModelFactory modelFactory;
 
     public AgendaCitasController(){
 
@@ -13,13 +13,13 @@ public class AgendaCitasController {
     }
 
 
-    public boolean disponibilidadFecha(DatePicker dateInfo) {
+    public static boolean disponibilidadFecha(DatePicker dateInfo) {
 
         return modelFactory.disponibilidadFecha(dateInfo);
     }
 
-    public void crearCita(ClienteDto clienteDto, DatePicker dateInfo) {
+    public static void crearCita(ClienteDto clienteDto,DatePicker dateFecha) {
 
-        modelFactory.crearCita(clienteDto, dateInfo);
+        modelFactory.crearCita(clienteDto, dateFecha);
     }
 }

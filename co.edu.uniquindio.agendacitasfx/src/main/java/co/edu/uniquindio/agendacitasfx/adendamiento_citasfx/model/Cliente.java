@@ -15,6 +15,9 @@ public class Cliente {
         this.citaAsociado = citaAsociado;
     }
 
+    public Cliente() {
+    }
+
     public String getNombre() {
         return nombre;
     }

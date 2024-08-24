@@ -2,15 +2,19 @@ package co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.viewController;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Mappings.Mapper.Dto.CitaDto;
 import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Mappings.Mapper.Dto.ClienteDto;
 import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.controller.AgendaCitasController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class AgendacitasViewController {
+    AgendaCitasController agendaCitasController;
 
     @FXML
     private ResourceBundle resources;
@@ -57,10 +61,24 @@ public class AgendacitasViewController {
 
     }
 
+
+
+
     @FXML
     void OnbtnAgendaCita(ActionEvent event) {
-        btnAgendaCita();
+        AgendarCita();
 
+    }
+
+    private void AgendarCita() {
+        if (verificarDatos()) {
+            if (AgendaCitasController.disponibilidadFecha(DateFecha)) {
+                ClienteDto clienteDto = crearClienteDto();
+                AgendaCitasController.crearCita(clienteDto,DateFecha);
+            } else {
+                mostrarMensaje("Advertencia","Fecha Ocupada", "La fecha solicitada no se encuentra disponible", Alert.AlertType.ERROR);
+            }
+        }
     }
 
     @FXML
@@ -72,24 +90,23 @@ public class AgendacitasViewController {
     void onbtnCancelar(ActionEvent event) {
 
     }
+    private void CancelarAngendamiento() {
+    txtCedulaCliente.setText("");
+    txtNombreCliente.setText("");
+    txtTelefonoCliente.setText("");
+    DateFecha.setValue(null);
+
+
+    }
 
     @FXML
     void initialize() {
-        AgendaCitasController = new AgendaCitasController();
+        agendaCitasController = new AgendaCitasController();
     }
 
-    private void agendarCita() {
-        if(verificarDatos()){
-            if(AgendaCitasController.disponibilidadFecha(DateFecha)){
-                ClienteDto clienteDto = crearClienteDto();
-                AgendaCitasController.crearCita(clienteDto);
-            }else {
-                mostrarMensaje("Advertencia", "Fecha Ocupada", "La fecha solicitada no se encuentra disponible");
-            }
-        }
-    }
 
-    private void crearClienteDto() {
+
+    private ClienteDto crearClienteDto() {
         ClienteDto clienteDto = new ClienteDto(
                 txtNombreCliente.getText(),
                 txtCedulaCliente.getText(),
@@ -101,10 +118,10 @@ public class AgendacitasViewController {
     private boolean verificarDatos() {
         boolean resultado = true;
         LocalDate fecha = DateFecha.getValue();
-        if (txtCedulaCliente.getText().equals("") || txtNombreCliente.getText().equals("")||txtTelefonoCliente.getText().equals("")){
+        if (txtCedulaCliente.getText().equals("") || txtNombreCliente.getText().equals("") || txtTelefonoCliente.getText().equals("")) {
             mostrarMensaje("Error", "Campos Nulos", "Hay campos sin rellenar.", Alert.AlertType.ERROR);
             resultado = false;
-        }else if (fecha.isBefore(LocalDate.now())) {
+        } else if (fecha.isBefore(LocalDate.now())) {
             mostrarMensaje("Error", "Fecha Nula o Incorrecta", "La fecha ingresada es nula o anterior al dia actual", Alert.AlertType.ERROR);
             resultado = false;
         }
@@ -121,20 +138,6 @@ public class AgendacitasViewController {
     }
 
 
-    private boolean verificarDatos() {
-        boolean resultado = true;
-        LocalDate fecha = DateInfo.getValue();
-        if(txtCedulaCliente.getText().equals("") || txtNombreCliente.getText().equals("") || txtTelefonoCliente.getText().equals("")) {
-            mostrarMensaje("Error", "Campos Nulos", "Hay campos necesarios sin rellenar", Alert.AlertType);
-            resultado = false;
-        }else if (fecha.isBefore(LocalDate.now())) {
-            mostrarMensaje("Error", )
-            return false;
-        }
-        return true;
-    }
-
-}
 
 
 

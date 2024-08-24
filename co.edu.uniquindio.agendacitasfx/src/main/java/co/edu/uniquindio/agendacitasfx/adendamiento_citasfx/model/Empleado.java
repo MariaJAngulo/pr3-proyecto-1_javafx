@@ -46,4 +46,7 @@ public class Empleado {
         this.idEmpleado = idEmpleado;
         this.citaAsociada = citaAsociada;
     }
+
+    public Empleado() {
+    }
 }

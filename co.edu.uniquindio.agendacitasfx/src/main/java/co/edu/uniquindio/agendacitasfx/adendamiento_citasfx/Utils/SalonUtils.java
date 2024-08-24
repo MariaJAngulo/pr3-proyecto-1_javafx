@@ -12,7 +12,9 @@ import java.time.format.DateTimeFormatter;
 public class SalonUtils {
     private Salon salon;
 
-    private Salon inicializarDatos(){
+    public static Salon inicializarDatos(){
+        Salon salon = new Salon();
+
         salon.setNombre("Perfect Nails");
 
         Empleado empleado = new Empleado();
