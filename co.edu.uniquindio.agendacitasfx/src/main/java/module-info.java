@@ -14,5 +14,6 @@ module co.edu.uniquindio.agendacitasfx.adendamiento_citasfx {
     exports co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.viewController;
     exports co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Mappings.Mapper;
     exports co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Mappings.Mapper.Dto;
+    exports co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.model;
 
 }

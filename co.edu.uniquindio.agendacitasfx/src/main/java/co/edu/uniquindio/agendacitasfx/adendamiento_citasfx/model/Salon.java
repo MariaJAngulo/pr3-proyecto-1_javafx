@@ -1,16 +1,23 @@
 package co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.model;
+import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Services.Observable;
+import co.edu.uniquindio.agendacitasfx.adendamiento_citasfx.Services.Observer;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Salon {
+public class Salon implements Observable {
     private String nombre;
     private List<Cita> citas = new ArrayList<>();
     private List<Empleado> empleados = new ArrayList<>();
     private List<Cliente> clientes = new ArrayList<>();
+
+    private List<Observer> observers = new ArrayList<>();
 
     public String getNombre() {
         return nombre;
@@ -64,5 +71,43 @@ public class Salon {
         }
         return disponibilidad;
     }
-}
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (Observer observer : observers){
+            observer.update();
+        }
+
+
+    }
+
+
+
+    public void eliminarCita( String fecha) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate LocalDateFechas = LocalDate.parse(fecha, formatter);
+            for (Cita cita : citas) {
+                if(cita.getFecha().equals(LocalDateFechas)) {
+                    citas.remove(cita);
+                    notifyObserver();
+                }
+            }
+        } catch (DateTimeParseException e) {
+
+        }
+    }
+ }
 
